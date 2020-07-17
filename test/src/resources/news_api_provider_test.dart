@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hacker_news/src/models/item_model.dart';
 import 'package:hacker_news/src/resources/news_api_provider.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
@@ -16,5 +17,19 @@ void main() {
     final ids = await newsAPI.fetchTopIDs();
 
     expect(ids, [1, 2, 3]);
+  });
+
+  test('FetchItem returns a item model', () async {
+    final newsAPI = NewsAPIProvider();
+
+    newsAPI.client = MockClient((request) async {
+      final jsonMap = {'id': 123};
+
+      return Response(json.encode(jsonMap), 200);
+    });
+
+    final item = await newsAPI.fetchItem(999);
+
+    expect(item.id, 123);
   });
 }
