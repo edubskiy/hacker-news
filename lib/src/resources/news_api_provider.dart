@@ -5,7 +5,7 @@ import 'package:http/http.dart' show Client;
 
 final _root = 'https://hacker-news.firebaseio.com/v0';
 
-class NewAPIProvider {
+class NewsAPIProvider {
   Client client = Client();
 
   fetchTopIDs() async {
