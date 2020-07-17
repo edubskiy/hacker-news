@@ -8,7 +8,7 @@ import 'package:sqflite/sqflite.dart';
 class NewsDBProvder {
   Database db;
 
-  init() async {
+  void init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, 'items.db');
 
@@ -38,7 +38,7 @@ class NewsDBProvder {
     );
   }
 
-  fetchItem(int id) async {
+  Future<ItemModel> fetchItem(int id) async {
     final maps = await db.query(
       "Items",
       columns: null,
@@ -53,7 +53,7 @@ class NewsDBProvder {
     return null;
   }
 
-  addItem(ItemModel item) {
+  Future<int> addItem(ItemModel item) {
     return db.insert('Items', item.toMap());
   }
 }

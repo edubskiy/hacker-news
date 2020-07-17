@@ -1,3 +1,4 @@
+import 'package:hacker_news/src/models/item_model.dart';
 import 'package:hacker_news/src/resources/news_api_provider.dart';
 import 'package:hacker_news/src/resources/news_db_provider.dart';
 
@@ -5,11 +6,11 @@ class Repository {
   NewsDBProvder dbProvider = NewsDBProvder();
   NewsAPIProvider apiProvider = NewsAPIProvider();
 
-  fetchTopIDs() {
+  Future<List<int>> fetchTopIDs() {
     return apiProvider.fetchTopIDs();
   }
 
-  fetchItem(int id) async {
+  Future<ItemModel> fetchItem(int id) async {
     var item = await dbProvider.fetchItem(id);
 
     if (item != null) {
