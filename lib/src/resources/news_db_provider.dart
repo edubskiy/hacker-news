@@ -1,12 +1,17 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:hacker_news/src/models/item_model.dart';
+import 'package:hacker_news/src/resources/repository.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class NewsDBProvder {
+class NewsDBProvder implements Source, Cache {
   Database db;
+
+  NewsDBProvder() {
+    init();
+  }
 
   void init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -38,6 +43,11 @@ class NewsDBProvder {
     );
   }
 
+  // TODO - store and fetch top ids
+  Future<List<int>> fetchTopIDs() {
+    return null;
+  }
+
   Future<ItemModel> fetchItem(int id) async {
     final maps = await db.query(
       "Items",
@@ -57,3 +67,5 @@ class NewsDBProvder {
     return db.insert('Items', item.toMap());
   }
 }
+
+final newsDBProvder = NewsDBProvder();
