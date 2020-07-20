@@ -21,7 +21,9 @@ class App extends StatelessWidget {
       });
     } else {
       return MaterialPageRoute(builder: (context) {
-        return NewsDetails();
+        final itemId = int.parse(settings.name.replaceFirst('/', ''));
+
+        return NewsDetails(itemId: itemId);
       });
     }
   }
