@@ -66,6 +66,10 @@ class NewsDBProvder implements Source, Cache {
   Future<int> addItem(ItemModel item) {
     return db.insert('Items', item.toMap());
   }
+
+  Future<int> clear() {
+    return db.delete('Items');
+  }
 }
 
 final newsDBProvder = NewsDBProvder();
